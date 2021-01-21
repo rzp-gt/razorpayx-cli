@@ -15,8 +15,6 @@ import (
 type FixturesCmd struct {
 	Cmd *cobra.Command
 	Cfg *config.Config
-
-	stripeAccount string
 }
 
 func newFixturesCmd(cfg *config.Config) *FixturesCmd {

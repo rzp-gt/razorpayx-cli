@@ -23,7 +23,6 @@ type RequestParameters struct {
 	idempotency   string
 	limit         string
 	version       string
-	stripeAccount string
 }
 
 // AppendData appends data to the request parameters.

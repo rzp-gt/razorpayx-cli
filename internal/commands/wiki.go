@@ -73,7 +73,6 @@ func newWikiCmd() *wikiCmd {
 	}
 
 	wc.cmd.Flags().Bool("list", false, "List all supported short cuts")
-	wc.cmd.Flags().Bool("live", false, "Open the Stripe Dashboard for your live integration")
 
 	return wc
 }
