@@ -1,0 +1,19 @@
+{
+  "fixtures": [
+    {
+      "name": "payout_creation",
+      "path": "/v1/payouts",
+      "method": "post",
+      "params": {
+        "mode": "IMPS",
+        "amount": 2000,
+        "currency": "INR",
+        "purpose": "refund",
+        "account_number": "2323230079767628",
+        "fund_account_id": "fa_GRwG25zXLiVMUV",
+        "narration": "created by razorpayx CLI",
+        "notes": {"key": "test razorpayx cli"}
+      }
+    }
+  ]
+}

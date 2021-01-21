@@ -1,0 +1,42 @@
+{
+  "fixtures": [
+    {
+      "name": "contact",
+      "path": "/v1/contacts",
+      "method": "post",
+      "params": {
+        "name": "gaurav tayal",
+        "type": "employee"
+      }
+    },
+    {
+      "name": "fund_account",
+      "path": "/v1/fund_accounts",
+      "method": "post",
+      "params": {
+        "account_type": "bank_account",
+        "contact_id": "${contact:id}",
+        "bank_account": {
+          "name": "gaurav tayal",
+          "ifsc": "SBIN0007105",
+          "account_number": "111000"
+        }
+      }
+    },
+    {
+      "name": "payout_creation",
+      "path": "/v1/payouts",
+      "method": "post",
+      "params": {
+        "mode": "IMPS",
+        "amount": 2000,
+        "currency": "INR",
+        "purpose": "refund",
+        "account_number": "2323230079767628",
+        "fund_account_id": "${fund_account:id}",
+        "narration": "created by razorpayx CLI",
+        "notes": {"key": "test razorpayx cli"}
+      }
+    }
+  ]
+}

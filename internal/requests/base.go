@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-// RequestParameters captures the structure of the parameters that can be sent to Stripe
+// RequestParameters captures the structure of the parameters that can be sent to RazorpayX
 type RequestParameters struct {
 	data          []string
 	expand        []string
@@ -29,11 +29,6 @@ type RequestParameters struct {
 // AppendData appends data to the request parameters.
 func (r *RequestParameters) AppendData(data []string) {
 	r.data = append(r.data, data...)
-}
-
-// SetStripeAccount sets the value for the `Stripe-Account` header.
-func (r *RequestParameters) SetStripeAccount(value string) {
-	r.stripeAccount = value
 }
 
 // Base encapsulates the required information needed to make requests to the API
@@ -129,7 +124,6 @@ func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParam
 
 	configureReq := func(req *http.Request) {
 		rb.setIdempotencyHeader(req, params)
-		rb.setStripeAccountHeader(req, params)
 		rb.setVersionHeader(req, params)
 	}
 
@@ -241,7 +235,7 @@ func encode(keys []string, values []string) string {
 
 func (rb *Base) setIdempotencyHeader(request *http.Request, params *RequestParameters) {
 	if params.idempotency != "" {
-		request.Header.Set("Idempotency-Key", params.idempotency)
+		request.Header.Set("X-Idempotency-Key", params.idempotency)
 
 		if rb.Method == http.MethodGet || rb.Method == http.MethodDelete {
 			warning := fmt.Sprintf(
@@ -257,12 +251,6 @@ func (rb *Base) setIdempotencyHeader(request *http.Request, params *RequestParam
 func (rb *Base) setVersionHeader(request *http.Request, params *RequestParameters) {
 	if params.version != "" {
 		request.Header.Set("Stripe-Version", params.version)
-	}
-}
-
-func (rb *Base) setStripeAccountHeader(request *http.Request, params *RequestParameters) {
-	if params.stripeAccount != "" {
-		request.Header.Set("Stripe-Account", params.stripeAccount)
 	}
 }
 
