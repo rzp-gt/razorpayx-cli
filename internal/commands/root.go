@@ -28,6 +28,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(Config.InitConfig)
 	rootCmd.PersistentFlags().StringVar(&Config.Profile.APIKey, "api-key", "", "Your API key to use for the command")
+	rootCmd.PersistentFlags().StringVar(&Config.Profile.APISecret, "api-secret", "", "Your API secret to use for the command")
 	rootCmd.PersistentFlags().StringVar(&Config.ProfilesFile, "config", "", "config file (default is $HOME/.config/razorpayx/config.toml)")
 	rootCmd.PersistentFlags().StringVar(&Config.Profile.DeviceName, "device-name", "", "device name")
 	rootCmd.PersistentFlags().StringVarP(&Config.Profile.ProfileName, "project-name", "p", "default", "the project name to read from for config")

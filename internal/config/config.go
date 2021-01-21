@@ -73,7 +73,9 @@ func (c *Config) InitConfig() {
 
 func (c *Config) CreateProfile() error {
 	c.Profile.LiveModeAPIKey = "test"
+	c.Profile.LiveModeAPISecret = "test"
 	c.Profile.TestModeAPIKey = "test"
+	c.Profile.TestModeAPISecret = "test"
 	c.Profile.DisplayName = "test"
 
 	profileErr := c.Profile.CreateProfile()

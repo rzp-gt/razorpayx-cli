@@ -78,8 +78,11 @@ func (rb *Base) RunRequestsCmd(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 
-	// read from config
-	apiKey := "cnpwX3Rlc3RfS0F0QU5FNmR5MjdRNUQ6Ymo3UEp6MlRiT0o5MEhoZ2N1YnNOZXpt"
+	apiKey, err := rb.Profile.GetAPIKey(rb.Livemode)
+	if err != nil {
+		return err
+	}
+	apiSecret, err := rb.Profile.GetAPISecret(rb.Livemode)
 	if err != nil {
 		return err
 	}
@@ -89,57 +92,34 @@ func (rb *Base) RunRequestsCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	_, err = rb.MakeRequest(apiKey, path, &rb.Parameters, false)
+	_, err = rb.MakeRequest(apiKey, apiSecret, path, &rb.Parameters, false)
 
 	return err
 }
 
 // InitFlags initialize shared flags for all requests commands
 func (rb *Base) InitFlags() {
-	if rb.Cmd.Flags().Lookup("confirm") == nil {
-		rb.Cmd.Flags().BoolVarP(&rb.autoConfirm, "confirm", "c", false, "Skip the warning prompt and automatically confirm the command being entered")
-	}
 
 	rb.Cmd.Flags().StringArrayVarP(&rb.Parameters.data, "data", "d", []string{}, "Data for the API request")
-	rb.Cmd.Flags().StringArrayVarP(&rb.Parameters.expand, "expand", "e", []string{}, "Response attributes to expand inline")
-	rb.Cmd.Flags().StringVarP(&rb.Parameters.idempotency, "idempotency", "i", "", "Set the idempotency key for the request, prevents replaying the same requests within 24 hours")
-	rb.Cmd.Flags().StringVarP(&rb.Parameters.version, "stripe-version", "v", "", "Set the Stripe API version to use for your request")
-	rb.Cmd.Flags().StringVar(&rb.Parameters.stripeAccount, "stripe-account", "", "Set a header identifying the connected account")
-	rb.Cmd.Flags().BoolVarP(&rb.showHeaders, "show-headers", "s", false, "Show response headers")
 	rb.Cmd.Flags().BoolVar(&rb.Livemode, "live", false, "Make a live request (default: test)")
-	rb.Cmd.Flags().BoolVar(&rb.DarkStyle, "dark-style", false, "Use a darker color scheme better suited for lighter command-lines")
-
-	// Conditionally add flags for GET requests. I'm doing it here to keep `limit`, `start_after` and `ending_before` unexported
-	if rb.Method == http.MethodGet {
-		if rb.Cmd.Flags().Lookup("limit") == nil {
-			rb.Cmd.Flags().StringVarP(&rb.Parameters	.limit, "limit", "l", "", "How many objects to be returned, between 1 and 100 (default is 10)")
-		}
-
-		if rb.Cmd.Flags().Lookup("starting-after") == nil {
-			rb.Cmd.Flags().StringVarP(&rb.Parameters.startingAfter, "starting-after", "a", "", "Retrieve the next page in the list. This is a cursor for pagination and should be an object ID")
-		}
-
-		if rb.Cmd.Flags().Lookup("ending-before") == nil {
-			rb.Cmd.Flags().StringVarP(&rb.Parameters.endingBefore, "ending-before", "b", "", "Retrieve the previous page in the list. This is a cursor for pagination and should be an object ID")
-		}
-	}
 
 	// Hidden configuration flags, useful for dev/debugging
-	rb.Cmd.Flags().StringVar(&rb.APIBaseURL, "api-base", "https://api.razorpay.com", "Sets the API base URL")
+	rb.Cmd.Flags().StringVar(&rb.APIBaseURL, "api-base", client.DefaultAPIBaseURL, "Sets the API base URL")
 	rb.Cmd.Flags().MarkHidden("api-base") // #nosec G104
 }
 
 // MakeRequest will make a request to the Stripe API with the specific variables given to it
-func (rb *Base) MakeRequest(apiKey, path string, params *RequestParameters, errOnStatus bool) ([]byte, error) {
+func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParameters, errOnStatus bool) ([]byte, error) {
 	parsedBaseURL, err := url.Parse(rb.APIBaseURL)
 	if err != nil {
 		return []byte{}, err
 	}
 
 	client := &client.Client{
-		BaseURL: parsedBaseURL,
-		APIKey:  apiKey,
-		Verbose: rb.showHeaders,
+		BaseURL:   parsedBaseURL,
+		APIKey:    apiKey,
+		APISecret: apiSecret,
+		Verbose:   rb.showHeaders,
 	}
 
 	data, err := rb.buildDataForRequest(params)
@@ -161,6 +141,15 @@ func (rb *Base) MakeRequest(apiKey, path string, params *RequestParameters, errO
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
+
+	if !rb.SuppressOutput {
+		if err != nil {
+			return []byte{}, err
+		}
+
+		result := string(body)
+		fmt.Print(result)
+	}
 
 	if errOnStatus && resp.StatusCode >= 300 {
 		return nil, fmt.Errorf("Request failed, status=%d, body=%s", resp.StatusCode, string(body))

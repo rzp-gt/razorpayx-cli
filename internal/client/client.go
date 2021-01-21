@@ -12,7 +12,7 @@ import (
 )
 
 // DefaultAPIBaseURL is the default base URL for API requests
-const DefaultAPIBaseURL = "https://x.razorpay.com/"
+const DefaultAPIBaseURL = "https://api.razorpay.com/"
 
 // DefaultDashboardBaseURL is the default base URL for dashboard requests
 const DefaultDashboardBaseURL = "https://x.razorpay.com/"
@@ -26,6 +26,8 @@ type Client struct {
 	// API key used to authenticate requests sent by this client. If left
 	// empty, the `Authorization` header will be omitted.
 	APIKey string
+
+	APISecret string
 
 	// When this is enabled, request and response headers will be printed to
 	// stdout.
@@ -60,7 +62,9 @@ func (c *Client) PerformRequest(ctx context.Context, method, path string, params
 	req.Header.Set("Accept-Encoding", "identity")
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	req.SetBasicAuth("rzp_test_KAtANE6dy27Q5D","bj7PJz2TbOJ90HhgcubsNezm" )
+	//req.SetBasicAuth("rzp_test_KAtANE6dy27Q5D","bj7PJz2TbOJ90HhgcubsNezm" )
+
+	req.SetBasicAuth(c.APIKey, c.APISecret)
 
 	if configure != nil {
 		configure(req)

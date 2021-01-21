@@ -46,46 +46,6 @@ func CallNonEmpty(validator ArgValidator, value string) error {
 	return validator(value)
 }
 
-// APIKey validates that a string looks like an API key.
-func APIKey(input string) error {
-	if len(input) == 0 {
-		return ErrAPIKeyNotConfigured
-	} else if len(input) < 12 {
-		return errors.New("the API key provided is too short, it must be at least 12 characters long")
-	}
-
-	keyParts := strings.Split(input, "_")
-	if len(keyParts) < 3 {
-		return errors.New("you are using a legacy-style API key which is unsupported by the CLI. Please generate a new test mode API key")
-	}
-
-	if keyParts[0] != "sk" && keyParts[0] != "rk" {
-		return errors.New("the CLI only supports using a secret or restricted key")
-	}
-
-	return nil
-}
-
-// APIKeyNotRestricted validates that a string looks like a secret API key and is not a restricted key.
-func APIKeyNotRestricted(input string) error {
-	if len(input) == 0 {
-		return ErrAPIKeyNotConfigured
-	} else if len(input) < 12 {
-		return errors.New("the API key provided is too short, it must be at least 12 characters long")
-	}
-
-	keyParts := strings.Split(input, "_")
-	if len(keyParts) < 3 {
-		return errors.New("you are using a legacy-style API key which is unsupported by the CLI. Please generate a new test mode API key")
-	}
-
-	if keyParts[0] != "sk" || keyParts[0] == "rk" {
-		return errors.New("this CLI command only supports using a secret key. Please re-run using the --api-key flag override with your secret API key")
-	}
-
-	return nil
-}
-
 // Account validates that a string is an acceptable account filter.
 func Account(account string) error {
 	accountUpper := strings.ToUpper(account)

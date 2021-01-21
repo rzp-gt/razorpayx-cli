@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/BurntSushi/toml"
+	"github.com/rzp-gt/razorpayx-cli/internal/validators"
 	"github.com/spf13/viper"
-	"github.com/stripe/stripe-cli/pkg/validators"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -16,12 +16,15 @@ import (
 
 // Profile handles all things related to managing the project specific configurations
 type Profile struct {
-	DeviceName     string
-	ProfileName    string
-	APIKey         string
-	LiveModeAPIKey string
-	TestModeAPIKey string
-	DisplayName    string
+	DeviceName        string
+	ProfileName       string
+	APIKey            string
+	APISecret         string
+	LiveModeAPIKey    string
+	LiveModeAPISecret string
+	TestModeAPIKey    string
+	TestModeAPISecret string
+	DisplayName       string
 }
 
 // CreateProfile creates a profile when logging in
@@ -246,37 +249,36 @@ func (c *Config) PrintConfig() error {
 func (p *Profile) GetAPIKey(livemode bool) (string, error) {
 
 	if p.APIKey != "" {
-		err := validators.APIKey(p.APIKey)
-		if err != nil {
-			return "", err
-		}
-
 		return p.APIKey, nil
-	}
-
-	// If the user doesn't have an api_key field set, they might be using an
-	// old configuration so try to read from secret_key
-	if !livemode {
-		if !viper.IsSet(p.GetConfigField("api_key")) {
-			p.RegisterAlias("api_key", "secret_key")
-		} else {
-			p.RegisterAlias("test_mode_api_key", "api_key")
-		}
 	}
 
 	// Try to fetch the API key from the configuration file
 	if err := viper.ReadInConfig(); err == nil {
 		key := viper.GetString(p.GetConfigField(livemodeKeyField(livemode)))
 
-		err := validators.APIKey(key)
-		if err != nil {
-			return "", err
-		}
+		return key, nil
+	}
+
+	return "", validators.ErrAPIKeyNotConfigured
+
+}
+
+// GetAPIKey will return the existing key for the given profile
+func (p *Profile) GetAPISecret(livemode bool) (string, error) {
+
+	if p.APISecret != "" {
+		return p.APISecret, nil
+	}
+
+	// Try to fetch the API key from the configuration file
+	if err := viper.ReadInConfig(); err == nil {
+		key := viper.GetString(p.GetConfigField(livemodeSecretField(livemode)))
 
 		return key, nil
 	}
 
 	return "", validators.ErrAPIKeyNotConfigured
+
 }
 
 func livemodeKeyField(livemode bool) string {
@@ -285,6 +287,14 @@ func livemodeKeyField(livemode bool) string {
 	}
 
 	return "test_mode_api_key"
+}
+
+func livemodeSecretField(livemode bool) string {
+	if livemode {
+		return "live_mode_api_secret"
+	}
+
+	return "test_mode_api_secret"
 }
 
 // GetDisplayName returns the account display name of the user
