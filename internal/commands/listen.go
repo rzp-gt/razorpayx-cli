@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"fmt"
 	"github.com/rzp-gt/razorpayx-cli/internal/validators"
 	"github.com/spf13/cobra"
 	"io/ioutil"
@@ -14,12 +15,15 @@ func (h HttpHandler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 	// create response binary data
 	data, err := ioutil.ReadAll(req.Body)
 	// write `data` to response
+	fmt.Println(string(data))
 
 	if err != nil {
-		//res.Write([])
+		msg := "error"
+		res.Write([]byte (msg))
+		res.WriteHeader(http.StatusInternalServerError)
 	}
-	
-	res.Write(data)
+	msg := "success"
+	res.Write([]byte (msg))
 }
 
 
@@ -47,10 +51,6 @@ local machine by connecting directly to RazorpayX's API`,
 	}
 
 	lc.cmd.Flags().BoolVar(&lc.livemode, "live", false, "Receive live events (default: test)")
-	lc.cmd.Flags().BoolVarP(&lc.printJSON, "print-json", "j", false, "Print full JSON objects to stdout")
-	lc.cmd.Flags().BoolVarP(&lc.skipVerify, "skip-verify", "", false, "Skip certificate verification when forwarding to HTTPS endpoints")
-	lc.cmd.Flags().BoolVar(&lc.onlyPrintSecret, "print-secret", false, "Only print the webhook signing secret and exit")
-	lc.cmd.Flags().StringVar(&lc.apiBaseURL, "api-base", "", "Sets API Base URL")
 	return lc
 }
 
