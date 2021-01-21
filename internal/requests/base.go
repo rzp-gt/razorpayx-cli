@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"github.com/rzp-gt/razorpayx-cli/internal/client"
 	"github.com/rzp-gt/razorpayx-cli/internal/config"
 	"github.com/spf13/cobra"
@@ -140,8 +141,8 @@ func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParam
 			return []byte{}, err
 		}
 
-		result := string(body)
-		fmt.Print(result + "\n")
+		result := ansi.ColorizeJSON(string(body), rb.DarkStyle, os.Stdout)
+		fmt.Print(result)
 	}
 
 	if errOnStatus && resp.StatusCode >= 300 {
