@@ -3,6 +3,9 @@ module github.com/rzp-gt/razorpayx-cli
 go 1.15
 
 require (
+	github.com/BurntSushi/toml v0.3.1
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.1.1
-	honnef.co/go/tools v0.0.1-2019.2.3
+	github.com/spf13/viper v1.7.1
+	github.com/stripe/stripe-cli v1.5.7 // indirect
 )
