@@ -11,28 +11,27 @@ type postCmd struct {
 	reqs requests.Base
 }
 
-func newPostCmd() *postCmd  {
+func newPostCmd() *postCmd {
 	gc := &postCmd{}
 
 	gc.reqs.Method = http.MethodPost
 	gc.reqs.Cmd = &cobra.Command{
-		Use: "post <path>",
-		Args : validators.ExactArgs(1),
-		RunE: gc.reqs.RunRequestsCmd,
+		Use:   "post <path>",
+		Args:  validators.ExactArgs(1),
+		RunE:  gc.reqs.RunRequestsCmd,
 		Short: "Make POST requests to RazorpayX API",
-		Long: `Make POST requests to the Stripe API using your key.
-	The post command supports API features like idempotency keys and expand flags.
+		Long: `Make POST requests to the RazorpayX API using your key.
+			   The post command supports API features like idempotency keys and expand flags.
 
-For a full list of supported paths, see the API reference:
+F		or a full list of supported paths, see the API reference:
 
 `,
-		Example: `stripe post /payouts \
-    -d amount=2000 \
-    -d account_number=2323230079767628 \
-`	}
+		Example: `razorpayx post /payouts \
+    			  -d amount=2000 \
+				  -d account_number=2323230079767628 \
+		`}
 	gc.reqs.Profile = &Config.Profile
 	gc.reqs.InitFlags()
 
 	return gc
 }
-
