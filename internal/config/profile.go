@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/spf13/viper"
+	"github.com/stripe/stripe-cli/pkg/validators"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -239,4 +240,72 @@ func (c *Config) PrintConfig() error {
 	}
 
 	return nil
+}
+
+// GetAPIKey will return the existing key for the given profile
+func (p *Profile) GetAPIKey(livemode bool) (string, error) {
+
+	if p.APIKey != "" {
+		err := validators.APIKey(p.APIKey)
+		if err != nil {
+			return "", err
+		}
+
+		return p.APIKey, nil
+	}
+
+	// If the user doesn't have an api_key field set, they might be using an
+	// old configuration so try to read from secret_key
+	if !livemode {
+		if !viper.IsSet(p.GetConfigField("api_key")) {
+			p.RegisterAlias("api_key", "secret_key")
+		} else {
+			p.RegisterAlias("test_mode_api_key", "api_key")
+		}
+	}
+
+	// Try to fetch the API key from the configuration file
+	if err := viper.ReadInConfig(); err == nil {
+		key := viper.GetString(p.GetConfigField(livemodeKeyField(livemode)))
+
+		err := validators.APIKey(key)
+		if err != nil {
+			return "", err
+		}
+
+		return key, nil
+	}
+
+	return "", validators.ErrAPIKeyNotConfigured
+}
+
+func livemodeKeyField(livemode bool) string {
+	if livemode {
+		return "live_mode_api_key"
+	}
+
+	return "test_mode_api_key"
+}
+
+// GetDisplayName returns the account display name of the user
+func (p *Profile) GetDisplayName() string {
+	if err := viper.ReadInConfig(); err == nil {
+		return viper.GetString(p.GetConfigField("display_name"))
+	}
+
+	return ""
+}
+
+// GetDeviceName returns the configured device name
+func (p *Profile) GetDeviceName() (string, error) {
+
+	if p.DeviceName != "" {
+		return p.DeviceName, nil
+	}
+
+	if err := viper.ReadInConfig(); err == nil {
+		return viper.GetString(p.GetConfigField("device_name")), nil
+	}
+
+	return "", validators.ErrDeviceNameNotConfigured
 }
