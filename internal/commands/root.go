@@ -34,4 +34,5 @@ func init() {
 
 	rootCmd.AddCommand(newConfigCmd().cmd)
 	rootCmd.AddCommand(newWikiCmd().cmd)
+	rootCmd.AddCommand(newGetCmd().reqs.Cmd)
 }
