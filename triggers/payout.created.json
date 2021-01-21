@@ -11,8 +11,10 @@
         "purpose": "refund",
         "account_number": "2323230079767628",
         "fund_account_id": "fa_GRwG25zXLiVMUV",
-        "narration": "created by razorpayx CLI",
-        "notes": {"key": "test razorpayx cli"}
+        "narration": "created by razorpayx cli",
+        "notes": {
+          "key": "test razorpayx cli"
+        }
       }
     }
   ]

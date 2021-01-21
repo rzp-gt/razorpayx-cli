@@ -141,7 +141,7 @@ func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParam
 		}
 
 		result := string(body)
-		fmt.Print(result)
+		fmt.Print(result + "\n")
 	}
 
 	if errOnStatus && resp.StatusCode >= 300 {
