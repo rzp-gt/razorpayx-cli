@@ -66,10 +66,9 @@ func newWikiCmd() *wikiCmd {
 		Long: `The wiki command provices shortcuts to quickly let you open pages to RazorpayX with
 				in your browser. A full list of support shortcuts can be seen with 'razorpayX wiki --list'`,
 		Example: `RazorpayX wiki --list
-				  RazorpayX wiki api
-  				  RazorpayX wiki docs
-  				  RazorpayX wiki dashboard/webhooks
-				  RazorpayX wiki dashboard/billing --live`,
+				  RazorpayX wiki contact
+  				  RazorpayX wiki fundAccount
+  				  RazorpayX wiki payouts`,
 		RunE: wc.runWikiCmd,
 	}
 
