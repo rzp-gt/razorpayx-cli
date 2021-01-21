@@ -39,4 +39,5 @@ func init() {
 	rootCmd.AddCommand(newPostCmd().reqs.Cmd)
 	rootCmd.AddCommand(newFixturesCmd(&Config).Cmd)
 	rootCmd.AddCommand(newListenCmd().cmd)
+	rootCmd.AddCommand(newTriggerCmd().cmd)
 }
