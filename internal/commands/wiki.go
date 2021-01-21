@@ -10,13 +10,13 @@ import (
 )
 
 var nameURLmap = map[string]string{
-	"contact":          "https://razorpay.com/docs/razorpayx/api/contacts",
-	"fundAccount":      "https://razorpay.com/docs/razorpayx/api/fund-accounts",
-	"payouts":          "https://razorpay.com/docs/razorpayx/api/payouts",
-	"compositeApi":     "https://razorpay.com/docs/razorpayx/api/composite-api",
-	"idempotency":      "https://razorpay.com/docs/razorpayx/api/idempotency",
-	"accountStatement": "https://razorpay.com/docs/razorpayx/api/transactions",
-	"webhooks":         "https://razorpay.com/docs/razorpayx/api/webhooks",
+	"contact":      "https://razorpay.com/docs/razorpayx/api/contacts",
+	"fundAccount":  "https://razorpay.com/docs/razorpayx/api/fund-accounts",
+	"payouts":      "https://razorpay.com/docs/razorpayx/api/payouts",
+	"compositeApi": "https://razorpay.com/docs/razorpayx/api/composite-api",
+	"idempotency":  "https://razorpay.com/docs/razorpayx/api/idempotency",
+	"transactions": "https://razorpay.com/docs/razorpayx/api/transactions",
+	"webhooks":     "https://razorpay.com/docs/razorpayx/api/webhooks",
 }
 
 func wikiNames() []string {
