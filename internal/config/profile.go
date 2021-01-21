@@ -61,6 +61,14 @@ func (p *Profile) writeProfile(runtimeViper *viper.Viper) error {
 		runtimeViper.Set(p.GetConfigField("display_name"), strings.TrimSpace(p.DisplayName))
 	}
 
+	if p.LiveModeAPISecret != "" {
+		runtimeViper.Set(p.GetConfigField("live_mode_api_secret"), strings.TrimSpace(p.LiveModeAPISecret))
+	}
+
+	if p.TestModeAPISecret != "" {
+		runtimeViper.Set(p.GetConfigField("test_mode_api_secret"), strings.TrimSpace(p.TestModeAPISecret))
+	}
+
 	runtimeViper.MergeInConfig()
 
 	// Do this after we merge the old configs in
