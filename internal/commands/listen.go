@@ -59,6 +59,9 @@ local machine by connecting directly to RazorpayX's API`,
 }
 
 func (lc *listenCmd) runListenCmd(cmd *cobra.Command, args []string) error {
+
+	fmt.Printf("Listening Now \n")
+	
 	// create a new handler
 	handler := HttpHandler{}
 

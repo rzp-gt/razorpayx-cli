@@ -23,18 +23,18 @@ func newConfigCmd() *configCmd {
 	}
 	cc.cmd = &cobra.Command{
 		Use:   "config",
-		Short: "Manually change the config values for the CLI",
+		Short: "Manually change the config values for the RazoropayX CLI",
 		Long: `config lets you set and unset specific configuration values for your profile if
 				you need more granular control over the configuration.`,
 		Example: `razorpayx config --list`,
 		RunE:    cc.runConfigCmd,
 	}
 
-	cc.cmd.Flags().BoolVar(&cc.list, "list", false, "List configs")
-	cc.cmd.Flags().BoolVarP(&cc.edit, "edit", "e", false, "Open an editor to the config file")
+	cc.cmd.Flags().BoolVar(&cc.list, "list", false, "List all the configs")
+	cc.cmd.Flags().BoolVarP(&cc.edit, "edit", "e", false, "Opens an editor to the config file")
 	cc.cmd.Flags().StringVar(&cc.unset, "unset", "", "Unset a specific config field")
 	cc.cmd.Flags().BoolVar(&cc.set, "set", false, "Set a config field to some value")
-	cc.cmd.Flags().BoolVar(&cc.create, "create", false, "create a config profile")
+	cc.cmd.Flags().BoolVar(&cc.create, "create", false, "Create a config profile")
 
 	cc.cmd.Flags().SetInterspersed(false) // allow args to happen after flags to enable 2 arguments to --set
 
@@ -42,6 +42,7 @@ func newConfigCmd() *configCmd {
 }
 
 func (cc *configCmd) runConfigCmd(cmd *cobra.Command, args []string) error {
+	fmt.Printf("Running Config \n")
 	switch ok := true; ok {
 	case cc.set && len(args) == 2:
 		return cc.config.Profile.WriteConfigField(args[0], args[1])

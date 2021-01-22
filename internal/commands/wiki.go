@@ -10,13 +10,20 @@ import (
 )
 
 var nameURLmap = map[string]string{
-	"contact":      "https://razorpay.com/docs/razorpayx/api/contacts",
-	"fundAccount":  "https://razorpay.com/docs/razorpayx/api/fund-accounts",
-	"payouts":      "https://razorpay.com/docs/razorpayx/api/payouts",
-	"compositeApi": "https://razorpay.com/docs/razorpayx/api/composite-api",
-	"idempotency":  "https://razorpay.com/docs/razorpayx/api/idempotency",
-	"transactions": "https://razorpay.com/docs/razorpayx/api/transactions",
-	"webhooks":     "https://razorpay.com/docs/razorpayx/api/webhooks",
+	"contact":      		"https://razorpay.com/docs/razorpayx/api/contacts",
+	"fundAccount":  		"https://razorpay.com/docs/razorpayx/api/fund-accounts",
+	"payouts":      		"https://razorpay.com/docs/razorpayx/api/payouts",
+	"compositeApi": 		"https://razorpay.com/docs/razorpayx/api/composite-api",
+	"idempotency":  		"https://razorpay.com/docs/razorpayx/api/idempotency",
+	"transactions": 		"https://razorpay.com/docs/razorpayx/api/transactions",
+	"webhooks":     		"https://razorpay.com/docs/razorpayx/api/webhooks",
+	"razorpayx":			"https://razorpay.com/docs/razorpayx/",
+	"payout-links":			"https://razorpay.com/docs/razorpayx/api/payout-links/",
+	"postman-collection":	"https://app.getpostman.com/run-collection/70913b179a2d97235f6f",
+	"vendor-payments":		"https://razorpay.com/docs/razorpayx/vendor-payments/",
+	"tax-payments":			"https://razorpay.com/docs/razorpayx/tax-payments/",
+	"test-mode":			"https://razorpay.com/docs/razorpayx/test-mode/",
+	"security":				"https://razorpay.com/docs/razorpayx/2fa/",
 }
 
 func wikiNames() []string {
