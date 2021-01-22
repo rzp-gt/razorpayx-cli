@@ -32,25 +32,11 @@ func newTriggerCmd() *triggerCmd {
 		Use:       "trigger <event>",
 		Args:      validators.MaximumNArgs(1),
 		ValidArgs: fixtures.EventNames(),
-<<<<<<< HEAD
-		Short:     ansi.ColoredBoldStatus("Trigger test webhook events"),
-		Long: fmt.Sprintf(`Trigger specific webhook events to be sent. Webhooks events created through
-								   the trigger command will also create all necessary side-effect events that are
-								   needed to create the triggered event as well as the corresponding API objects.
 
-		%s
-		%s`,
-			"Supported events:",
-			fixtures.EventList(),
-		),
+		Short:     ansi.ColoredBoldStatus("Trigger test webhook events"),
+		Long:      ansi.ColoredBoldStatus(msg),
 		Example: `RazorpayX trigger payout.created`,
 		RunE:    tc.runTriggerCmd,
-=======
-		Short:     "Trigger test webhook events",
-		Long:      ansi.ColoredBoldStatus(msg),
-		Example:   `RazorpayX trigger payout.created`,
-		RunE:      tc.runTriggerCmd,
->>>>>>> 2f1612877a9cdb1f6b1e55031ef719b555751e93
 	}
 
 	// Hidden configuration flags, useful for dev/debugging

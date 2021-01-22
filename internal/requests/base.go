@@ -113,6 +113,9 @@ func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParam
 	}
 
 	data, err := rb.buildDataForRequest(params)
+	fmt.Println("Request body")
+	fmt.Println(ansi.ColorizeJSON(data, false,os.Stdout ))
+
 	if err != nil {
 		return []byte{}, err
 	}
