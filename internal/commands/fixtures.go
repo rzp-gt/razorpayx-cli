@@ -4,6 +4,7 @@ import (
 	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
+	"strings"
 
 	"github.com/rzp-gt/razorpayx-cli/internal/client"
 	"github.com/rzp-gt/razorpayx-cli/internal/config"
@@ -50,11 +51,19 @@ func (fc *FixturesCmd) runFixturesCmd(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 
+	//checklist --api-key rzp_test_1DP5mmOlF5G5ag --api-secret thisissupersecret
+	res := strings.Contains(args[0], "checklist")
+
+	url := client.DefaultAPIBaseURL
+	if res {
+		url = "http://192.168.0.103:8000"
+	}
+
 	fixture, err := fixtures.NewFixture(
 		afero.NewOsFs(),
 		apiKey,
 		apiSecret,
-		client.DefaultAPIBaseURL,
+		url,
 		args[0],
 	)
 	if err != nil {

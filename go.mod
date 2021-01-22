@@ -10,7 +10,7 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/magiconair/properties v1.8.3 // indirect
-	github.com/mattn/go-colorable v0.1.7 // indirectg
+	github.com/mattn/go-colorable v0.1.7 // indirect; indirectg
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
