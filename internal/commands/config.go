@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"github.com/spf13/cobra"
 
 	"github.com/rzp-gt/razorpayx-cli/internal/config"
@@ -21,11 +22,13 @@ func newConfigCmd() *configCmd {
 	cc := &configCmd{
 		config: &Config,
 	}
+	msg := "config lets you set and unset specific configuration values or your profile \n" +
+		"if you need more granular control over the configuration.\n"
+
 	cc.cmd = &cobra.Command{
 		Use:   "config",
 		Short: "Manually change the config values for the CLI",
-		Long: `config lets you set and unset specific configuration values for your profile if
-				you need more granular control over the configuration.`,
+		Long: ansi.ColoredBoldStatus(msg),
 		Example: `razorpayx config --list`,
 		RunE:    cc.runConfigCmd,
 	}

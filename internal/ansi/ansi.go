@@ -46,6 +46,18 @@ func Bold(text string) string {
 	return color.Sprintf(color.Bold(text))
 }
 
+func ColoredBoldStatus(text string) string {
+	color := Color(os.Stdout)
+
+	return color.Sprintf(color.Blue(color.Bold(text)))
+}
+
+func ColoredFaintStatus(text string) string {
+	color := Color(os.Stdout)
+
+	return color.Sprintf(color.Red(color.Faint(text)))
+}
+
 // Color returns an aurora.Aurora instance with colors enabled or disabled
 // depending on whether the writer supports colors.
 func Color(w io.Writer) aurora.Aurora {

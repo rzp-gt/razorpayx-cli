@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"github.com/rzp-gt/razorpayx-cli/internal/config"
 	"github.com/spf13/cobra"
 	"os"
@@ -13,7 +14,7 @@ var Config config.Config
 var rootCmd = &cobra.Command{
 	Use:   "RazorpayX",
 	Short: "A CLI to help you integrate RazorpayX with your application",
-	Long:  fmt.Sprintf("The command-line tool to interact with RazorpayX."),
+	Long:  ansi.ColoredBoldStatus("The command-line tool to interact with RazorpayX."),
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
