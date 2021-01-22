@@ -61,6 +61,9 @@ func newListenCmd() *listenCmd {
 }
 
 func (lc *listenCmd) runListenCmd(cmd *cobra.Command, args []string) error {
+
+	fmt.Printf("Listening Now \n")
+	
 	// create a new handler
 	handler := HttpHandler{}
 

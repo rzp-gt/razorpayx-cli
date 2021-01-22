@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9828c921-d0d5-4db6-8ed0-4a68447403c2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/internal/ansi/ansi.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/ansi/ansi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/fixtures.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/fixtures.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/get.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/get.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/listen.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/listen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/commands/wiki.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/commands/wiki.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="144" y="76" key="MergeDialog" timestamp="1611300782511">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="76" key="MergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1611300782511" />
+    <state x="358" y="215" key="MultipleFileMergeDialog" timestamp="1611300782557">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="358" y="215" key="MultipleFileMergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1611300782557" />
+  </component>
+</project>
