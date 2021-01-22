@@ -26,7 +26,7 @@ func newFixturesCmd(cfg *config.Config) *FixturesCmd {
 	fixturesCmd.Cmd = &cobra.Command{
 		Use:   "fixtures",
 		Args:  validators.ExactArgs(1),
-		Short: "Run fixtures to populate your account with data",
+		Short: ansi.ColoredBoldStatus("Run fixtures to populate your account with data"),
 		Long:  ansi.ColoredBoldStatus("Run fixtures to define workflows for APIs"),
 		RunE:  fixturesCmd.runFixturesCmd,
 	}

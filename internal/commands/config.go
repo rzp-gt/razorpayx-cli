@@ -27,7 +27,7 @@ func newConfigCmd() *configCmd {
 
 	cc.cmd = &cobra.Command{
 		Use:   "config",
-		Short: "Manually change the config values for the CLI",
+		Short: ansi.ColoredBoldStatus("Manually change the config values for the CLI"),
 		Long: ansi.ColoredBoldStatus(msg),
 		Example: `razorpayx config --list`,
 		RunE:    cc.runConfigCmd,

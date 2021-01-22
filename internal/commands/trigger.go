@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"github.com/rzp-gt/razorpayx-cli/internal/client"
 	"github.com/rzp-gt/razorpayx-cli/internal/fixtures"
 	"github.com/rzp-gt/razorpayx-cli/internal/validators"
@@ -23,7 +24,7 @@ func newTriggerCmd() *triggerCmd {
 		Use:       "trigger <event>",
 		Args:      validators.MaximumNArgs(1),
 		ValidArgs: fixtures.EventNames(),
-		Short:     "Trigger test webhook events",
+		Short:     ansi.ColoredBoldStatus("Trigger test webhook events"),
 		Long: fmt.Sprintf(`Trigger specific webhook events to be sent. Webhooks events created through
 								   the trigger command will also create all necessary side-effect events that are
 								   needed to create the triggered event as well as the corresponding API objects.

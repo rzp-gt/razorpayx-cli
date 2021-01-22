@@ -23,7 +23,7 @@ func newPostCmd() *postCmd {
 		Use:   "post <path>",
 		Args:  validators.ExactArgs(1),
 		RunE:  gc.reqs.RunRequestsCmd,
-		Short: "Make POST requests to RazorpayX API",
+		Short: ansi.ColoredBoldStatus("Make POST requests to RazorpayX API"),
 		Long: ansi.ColoredBoldStatus(msg),
 		Example: `razorpayx post /payouts \
     			  -d amount=2000 \

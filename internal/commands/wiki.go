@@ -68,7 +68,7 @@ func newWikiCmd() *wikiCmd {
 	wc.cmd = &cobra.Command{
 		Use:       "wiki",
 		ValidArgs: wikiNames(),
-		Short:     "Quickly open RazorpayX pages",
+		Short:     ansi.ColoredBoldStatus("Quickly open RazorpayX pages"),
 		Long:      ansi.ColoredBoldStatus(msg),
 		Example: `RazorpayX wiki --list
 				  RazorpayX wiki contact
@@ -95,8 +95,8 @@ func (oc *wikiCmd) runWikiCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	if list || len(args) == 0 {
-		fmt.Println("wiki quickly opens RazorpayX pages. To use, run 'razorpayX wiki <shortcut>'.")
-		fmt.Println("wiki supports the following shortcuts:")
+		fmt.Println(ansi.ColoredBoldStatus("wiki quickly opens RazorpayX pages. To use, run 'razorpayX wiki <shortcut>'."))
+		fmt.Println(ansi.ColoredBoldStatus("wiki supports the following shortcuts:"))
 		fmt.Println()
 
 		shortcuts := wikiNames()

@@ -21,7 +21,7 @@ func newGetCmd() *getCmd {
 	gc.reqs.Cmd = &cobra.Command{
 		Use:   "get <id or path>",
 		Args:  validators.ExactArgs(1),
-		Short: "Retrieve resources by their ID or make GET requests",
+		Short: ansi.ColoredBoldStatus("Retrieve resources by their ID or make GET requests"),
 		Long: ansi.ColoredBoldStatus(msg),
 		Example: `razorpay get pout_GLBIjRm3dN3i4Y`,
 		RunE:    gc.reqs.RunRequestsCmd,
