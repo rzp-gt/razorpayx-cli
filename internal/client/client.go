@@ -17,7 +17,7 @@ const DefaultAPIBaseURL = "https://api.razorpay.com/"
 // DefaultDashboardBaseURL is the default base URL for dashboard requests
 const DefaultDashboardBaseURL = "https://x.razorpay.com/"
 
-// Client is the API client used to sent requests to Stripe.
+// Client is the API client used to sent requests to RazorpayX.
 type Client struct {
 	// The base URL (protocol + hostname) used for all requests sent by this
 	// client.
@@ -38,7 +38,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
-// PerformRequest sends a request to Stripe and returns the response.
+// PerformRequest sends a request to RazorpayX and returns the response.
 func (c *Client) PerformRequest(ctx context.Context, method, path string, params string, configure func(*http.Request)) (*http.Response, error) {
 	url, err := url.Parse(path)
 	if err != nil {

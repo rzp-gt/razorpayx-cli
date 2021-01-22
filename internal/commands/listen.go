@@ -50,7 +50,7 @@ func newListenCmd() *listenCmd {
 		Short: "Listen for webhook events",
 		Long: `The listen command watches and forwards webhook events from RazorpayX API to your
 local machine by connecting directly to RazorpayX's API`,
-		Example: `stripe listen`,
+		Example: `RazorpayX listen`,
 		RunE:    lc.runListenCmd,
 	}
 

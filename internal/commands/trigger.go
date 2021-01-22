@@ -33,7 +33,7 @@ func newTriggerCmd() *triggerCmd {
 			"Supported events:",
 			fixtures.EventList(),
 		),
-		Example: `stripe trigger payment_intent.created`,
+		Example: `RazorpayX trigger payout.created`,
 		RunE:    tc.runTriggerCmd,
 	}
 

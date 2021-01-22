@@ -54,7 +54,8 @@ func padName(name string, length int) string {
 }
 
 type wikiCmd struct {
-	cmd *cobra.Command
+	cmd      *cobra.Command
+	livemode bool
 }
 
 func newWikiCmd() *wikiCmd {
@@ -73,6 +74,7 @@ func newWikiCmd() *wikiCmd {
 	}
 
 	wc.cmd.Flags().Bool("list", false, "List all supported short cuts")
+	wc.cmd.Flags().BoolVar(&wc.livemode, "live", false, "Receive live events (default: test)")
 
 	return wc
 }
@@ -89,7 +91,7 @@ func (oc *wikiCmd) runWikiCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	if list || len(args) == 0 {
-		fmt.Println("wiki quickly opens Stripe pages. To use, run 'razorpayX wiki <shortcut>'.")
+		fmt.Println("wiki quickly opens RazorpayX pages. To use, run 'razorpayX wiki <shortcut>'.")
 		fmt.Println("wiki supports the following shortcuts:")
 		fmt.Println()
 

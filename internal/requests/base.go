@@ -17,13 +17,8 @@ import (
 
 // RequestParameters captures the structure of the parameters that can be sent to RazorpayX
 type RequestParameters struct {
-	data          []string
-	expand        []string
-	startingAfter string
-	endingBefore  string
-	idempotency   string
-	limit         string
-	version       string
+	data        []string
+	idempotency string
 }
 
 // AppendData appends data to the request parameters.
@@ -103,7 +98,7 @@ func (rb *Base) InitFlags() {
 	rb.Cmd.Flags().MarkHidden("api-base") // #nosec G104
 }
 
-// MakeRequest will make a request to the Stripe API with the specific variables given to it
+// MakeRequest will make a request to the RazorpayX API with the specific variables given to it
 func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParameters, errOnStatus bool) ([]byte, error) {
 	parsedBaseURL, err := url.Parse(rb.APIBaseURL)
 	if err != nil {
@@ -124,7 +119,6 @@ func (rb *Base) MakeRequest(apiKey, apiSecret, path string, params *RequestParam
 
 	configureReq := func(req *http.Request) {
 		rb.setIdempotencyHeader(req, params)
-		rb.setVersionHeader(req, params)
 	}
 
 	resp, err := client.PerformRequest(context.TODO(), rb.Method, path, data, configureReq)
@@ -166,7 +160,7 @@ func (rb *Base) buildDataForRequest(params *RequestParameters) (string, error) {
 	keys := []string{}
 	values := []string{}
 
-	if len(params.data) > 0 || len(params.expand) > 0 {
+	if len(params.data) > 0 {
 		for _, datum := range params.data {
 			splitDatum := strings.SplitN(datum, "=", 2)
 
@@ -176,28 +170,6 @@ func (rb *Base) buildDataForRequest(params *RequestParameters) (string, error) {
 
 			keys = append(keys, splitDatum[0])
 			values = append(values, splitDatum[1])
-		}
-
-		for _, datum := range params.expand {
-			keys = append(keys, "expand[]")
-			values = append(values, datum)
-		}
-	}
-
-	if rb.Method == http.MethodGet {
-		if params.limit != "" {
-			keys = append(keys, "limit")
-			values = append(values, params.limit)
-		}
-
-		if params.startingAfter != "" {
-			keys = append(keys, "starting_after")
-			values = append(values, params.startingAfter)
-		}
-
-		if params.endingBefore != "" {
-			keys = append(keys, "ending_before")
-			values = append(values, params.endingBefore)
 		}
 	}
 
@@ -244,12 +216,6 @@ func (rb *Base) setIdempotencyHeader(request *http.Request, params *RequestParam
 			)
 			fmt.Println(warning)
 		}
-	}
-}
-
-func (rb *Base) setVersionHeader(request *http.Request, params *RequestParameters) {
-	if params.version != "" {
-		request.Header.Set("Stripe-Version", params.version)
 	}
 }
 
