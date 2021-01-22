@@ -57,6 +57,8 @@ func (fc *FixturesCmd) runFixturesCmd(cmd *cobra.Command, args []string) error {
 	url := client.DefaultAPIBaseURL
 	if res {
 		url = "http://192.168.0.103:8000"
+		apiKey = "rzp_test_1DP5mmOlF5G5ag"
+		apiSecret = "thisissupersecret"
 	}
 
 	fixture, err := fixtures.NewFixture(
