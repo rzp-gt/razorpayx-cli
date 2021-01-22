@@ -8,6 +8,7 @@ import (
 	"github.com/rzp-gt/razorpayx-cli/internal/validators"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
+	"strings"
 )
 
 type triggerCmd struct {
@@ -33,8 +34,8 @@ func newTriggerCmd() *triggerCmd {
 		Args:      validators.MaximumNArgs(1),
 		ValidArgs: fixtures.EventNames(),
 
-		Short:     ansi.ColoredBoldStatus("Trigger test webhook events"),
-		Long:      ansi.ColoredBoldStatus(msg),
+		Short:   ansi.ColoredBoldStatus("Trigger test webhook events"),
+		Long:    ansi.ColoredBoldStatus(msg),
 		Example: `RazorpayX trigger payout.created`,
 		RunE:    tc.runTriggerCmd,
 	}
@@ -66,9 +67,18 @@ func (tc *triggerCmd) runTriggerCmd(cmd *cobra.Command, args []string) error {
 
 	event := args[0]
 
+	res := (strings.Contains(args[0], "checklist") || strings.Contains(args[0], "status"))
+
+	url := tc.apiBaseURL
+	if res {
+		url = "http://192.168.0.103:8000"
+		apiKey = "rzp_test_1DP5mmOlF5G5ag"
+		apiSecret = "thisissupersecret"
+	}
+
 	var fixture *fixtures.Fixture
 	if file, ok := fixtures.Events[event]; ok {
-		fixture, err = fixtures.BuildFromFixture(tc.fs, apiKey, apiSecret, tc.apiBaseURL, file)
+		fixture, err = fixtures.BuildFromFixture(tc.fs, apiKey, apiSecret, url, file)
 		if err != nil {
 			return err
 		}
