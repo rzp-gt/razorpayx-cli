@@ -52,7 +52,7 @@ func (fc *FixturesCmd) runFixturesCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	//checklist --api-key rzp_test_1DP5mmOlF5G5ag --api-secret thisissupersecret
-	res := strings.Contains(args[0], "checklist")
+	res := (strings.Contains(args[0], "checklist") || strings.Contains(args[0], "status"))
 
 	url := client.DefaultAPIBaseURL
 	if res {

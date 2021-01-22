@@ -1,0 +1,11 @@
+{
+  "fixtures": [
+    {
+      "name": "checklist_get",
+      "path": "/v1/payout_checklist",
+      "method": "get",
+      "params": {
+      }
+    }
+  ]
+}

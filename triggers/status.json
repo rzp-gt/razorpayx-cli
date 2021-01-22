@@ -1,0 +1,11 @@
+{
+  "fixtures": [
+    {
+      "name": "status_get",
+      "path": "/v1/razorpayx/status",
+      "method": "get",
+      "params": {
+      }
+    }
+  ]
+}
