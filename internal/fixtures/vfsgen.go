@@ -10,7 +10,7 @@ import (
 
 	"github.com/shurcooL/vfsgen"
 
-	"github.com/stripe/stripe-cli/pkg/fixtures"
+	"github.com/rzp-gt/razorpayx-cli/internal/fixtures"
 )
 
 func main() {
