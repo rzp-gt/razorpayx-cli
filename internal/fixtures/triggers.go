@@ -9,7 +9,10 @@ import (
 
 // Events is a mapping of pre-built trigger events and the corresponding json file
 var Events = map[string]string{
-	"payout.created": "/payout.created.json",
+	"payout.created":   "/payout.created.json",
+	"checklist.get":    "/checklist.get.json",
+	"checklist.verify": "/checklist.verify.json",
+	"status.get":       "/status.json",
 }
 
 // BuildFromFixture creates a new fixture struct for a file
