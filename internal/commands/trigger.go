@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"github.com/rzp-gt/razorpayx-cli/internal/client"
 	"github.com/rzp-gt/razorpayx-cli/internal/fixtures"
 	"github.com/rzp-gt/razorpayx-cli/internal/validators"
@@ -19,22 +20,22 @@ type triggerCmd struct {
 func newTriggerCmd() *triggerCmd {
 	tc := &triggerCmd{}
 	tc.fs = afero.NewOsFs()
+
+	msg := fmt.Sprintf("Trigger specific webhook events to be sent. Webhooks events created through \n"+
+		"the trigger command will also create all necessary side-effect events that are \n"+
+		"needed to create the triggered event as well as the corresponding API objects. \n \n"+
+		"%s \n"+
+		"%s \n", "Supported events:",
+		fixtures.EventList())
+
 	tc.cmd = &cobra.Command{
 		Use:       "trigger <event>",
 		Args:      validators.MaximumNArgs(1),
 		ValidArgs: fixtures.EventNames(),
 		Short:     "Trigger test webhook events",
-		Long: fmt.Sprintf(`Trigger specific webhook events to be sent. Webhooks events created through
-								   the trigger command will also create all necessary side-effect events that are
-								   needed to create the triggered event as well as the corresponding API objects.
-
-		%s
-		%s`,
-			"Supported events:",
-			fixtures.EventList(),
-		),
-		Example: `RazorpayX trigger payout.created`,
-		RunE:    tc.runTriggerCmd,
+		Long:      ansi.ColoredBoldStatus(msg),
+		Example:   `RazorpayX trigger payout.created`,
+		RunE:      tc.runTriggerCmd,
 	}
 
 	// Hidden configuration flags, useful for dev/debugging
