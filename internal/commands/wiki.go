@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/rzp-gt/razorpayx-cli/internal/ansi"
 	"sort"
 	"strings"
 
@@ -67,12 +68,15 @@ type wikiCmd struct {
 
 func newWikiCmd() *wikiCmd {
 	wc := &wikiCmd{}
+
+	msg := "The wiki command provices shortcuts to quickly let you open pages to RazorpayX with in your browser\n" +
+		"A full list of support shortcuts can be seen with 'RazorpayX wiki --list'"
+
 	wc.cmd = &cobra.Command{
 		Use:       "wiki",
 		ValidArgs: wikiNames(),
 		Short:     "Quickly open RazorpayX pages",
-		Long: `The wiki command provices shortcuts to quickly let you open pages to RazorpayX with
-				in your browser. A full list of support shortcuts can be seen with 'razorpayX wiki --list'`,
+		Long:      ansi.ColoredBoldStatus(msg),
 		Example: `RazorpayX wiki --list
 				  RazorpayX wiki contact
   				  RazorpayX wiki fundAccount

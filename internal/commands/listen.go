@@ -44,12 +44,14 @@ type listenCmd struct {
 func newListenCmd() *listenCmd {
 	lc := &listenCmd{}
 
+	msg := "The listen command watches webhook events from RazorpayX API to your local machine\n" +
+		" by connecting directly to RazorpayX's API"
+
 	lc.cmd = &cobra.Command{
 		Use:   "listen",
 		Args:  validators.NoArgs,
 		Short: "Listen for webhook events",
-		Long: `The listen command watches and forwards webhook events from RazorpayX API to your
-local machine by connecting directly to RazorpayX's API`,
+		Long: ansi.ColoredBoldStatus(msg),
 		Example: `RazorpayX listen`,
 		RunE:    lc.runListenCmd,
 	}
