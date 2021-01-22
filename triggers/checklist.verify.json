@@ -34,6 +34,22 @@
       "method": "post",
       "params": {
         "mode": "IMPS",
+        "amount": 200,
+        "currency": "INR",
+        "purpose": "refund",
+        "account_number": "2323230041626905",
+        "fund_account_id": "${fund_account:id}",
+        "narration": "created by razorpayx cli",
+        "notes": {"key": "test razorpayx cli"},
+        "queue_if_low_balance": 1
+      }
+    },
+    {
+      "name": "payout_queuing",
+      "path": "/v1/payouts",
+      "method": "post",
+      "params": {
+        "mode": "IMPS",
         "amount": 200000,
         "currency": "INR",
         "purpose": "refund",
