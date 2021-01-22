@@ -50,7 +50,7 @@ func newListenCmd() *listenCmd {
 	lc.cmd = &cobra.Command{
 		Use:   "listen",
 		Args:  validators.NoArgs,
-		Short: "Listen for webhook events",
+		Short: ansi.ColoredBoldStatus("Listen for webhook events"),
 		Long: ansi.ColoredBoldStatus(msg),
 		Example: `RazorpayX listen`,
 		RunE:    lc.runListenCmd,

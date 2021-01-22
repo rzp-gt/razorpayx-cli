@@ -77,7 +77,6 @@ func (c *Client) PerformRequest(ctx context.Context, method, path string, params
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
-
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, err

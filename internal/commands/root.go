@@ -13,7 +13,7 @@ var Config config.Config
 
 var rootCmd = &cobra.Command{
 	Use:   "RazorpayX",
-	Short: "A CLI to help you integrate RazorpayX with your application",
+	Short: ansi.ColoredBoldStatus("A CLI to help you integrate RazorpayX with your application"),
 	Long:  ansi.ColoredBoldStatus("The command-line tool to interact with RazorpayX."),
 }
 
